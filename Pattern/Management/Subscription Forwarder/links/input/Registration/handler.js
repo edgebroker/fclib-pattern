@@ -1,6 +1,8 @@
 function handler(Registration) {
+
     this.assertProperty(Registration, "operation");
     this.assertProperty(Registration, "channelid");
+
     switch (Registration.property("operation").value().toString()) {
         case "attach":
             this.assertProperty(Registration, "context");
