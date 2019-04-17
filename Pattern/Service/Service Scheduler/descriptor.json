@@ -1,0 +1,26 @@
+{
+  "description": "Provides inputs to register/unregister service queues and to schedule messages round-robin to the services. A registration contains a 'queuename' and an 'operation' property which can contain the values 'add' or 'remove' to add or remove a service. Incoming messages are received via the In connector. The message contain a property 'operation' with possible values 'attach', 'detach' and 'send' and a 'key' property that contains a string. On 'attach' the message key is attached to a service, 'detach' removes it from a service. An additional boolean property 'forward' can be specified for 'attach' and 'detach'. If this property is true, the attach and detach messages are forwarded to the services. 'send' picks the service with the attached key and sends the message to the service. This ensures that all messages with the same 'key' goes to the same service and further that a round-robin mechanism to attach keys to services takes place.",
+  "links": {
+    "input": [
+      {
+        "name": "In",
+        "type": "message",
+        "mandatory": true
+      },
+      {
+        "name": "ServiceRegistration",
+        "type": "message",
+        "mandatory": true
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "lookupjndi",
+      "label": "Lookup Queue Names in JNDI",
+      "description": "This is usually used for temp queues which are registered in JNDI.",
+      "type": "boolean",
+      "default": false
+    }
+  ]
+}

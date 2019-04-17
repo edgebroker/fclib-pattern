@@ -1,0 +1,23 @@
+{
+  "description": "Receives a text message as input which must have a property 'context' with a CLI context. It sets the JSON representation of that context as body of the text message and sends it to the Out connector. If an error occurs, it sets the error message in the body and sends it to the Error connector.",
+  "links": {
+    "input": [
+      {
+        "name": "In",
+        "type": "message",
+        "mandatory": true
+      }
+    ],
+    "output": [
+      {
+        "name": "Out",
+        "type": "message"
+      },
+      {
+         "name": "Error",
+         "type": "message"
+       }
+     ]
+  },
+  "properties": [  ]
+}

@@ -1,0 +1,19 @@
+{
+  "description": "Receives registration/unregistration requests on CLI contexts and temp queue outputs. Dynamically registers management inputs and forwards changes to the registered temp queues (channels). The registration message contains a property 'operation' with value 'add' or 'remove' and property 'channelid' and 'context'.",
+  "links": {
+    "input": [
+      {
+        "name": "Registration",
+        "type": "message",
+        "mandatory": true
+      }
+    ],
+    "output": [
+      {
+        "name": "Debug",
+        "type": "message"
+      }
+    ]
+  },
+  "properties": [  ]
+}
