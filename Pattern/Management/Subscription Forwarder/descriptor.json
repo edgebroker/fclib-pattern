@@ -15,5 +15,13 @@
       }
     ]
   },
-  "properties": [  ]
+  "properties": [
+    {
+        "name": "flushinterval",
+        "label": "Flush Interval (ms)",
+        "description": "Changes are flushed to the explorer instance in this interval.",
+        "type": "integer",
+        "default": 500
+      }
+    ]
 }
