@@ -97,8 +97,8 @@ function handler() {
 
     function sendBulk(channelid, bulk) {
         var body = {
-            _op: "bulk",
-            _content: bulk
+            _OP: "bulk",
+            _CONTENT: bulk
         };
         var msg = stream.create().message().textMessage().nonpersistent().property("channelid").set(channelid).body(JSON.stringify(body));
         self.executeOutputLink("Debug", msg);
