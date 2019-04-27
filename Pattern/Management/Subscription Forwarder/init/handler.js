@@ -14,6 +14,7 @@ function handler() {
     });
 
     this.addSubscription = function (context, channelid) {
+        stream.log().info("addSubscription: "+context+", "+channelid);
         var inputs = stream.memory(self.compid + "-contexts").index("context").get(context);
         if (inputs.size() === 0) {
             stream.create().input(context).management().context(context)
@@ -59,6 +60,7 @@ function handler() {
     };
 
     this.removeSubscription = function (context, channelid) {
+        stream.log().info("removeSubscription: "+context+", "+channelid);
         stream.memory(self.compid + "-subscriptions").remove("context = '" + context + "' and channelid = '" + channelid + "'");
         var outputs = stream.memory(self.compid + "-subscriptions").index("channelid").get(channelid);
         if (outputs.size() === 0)
@@ -73,13 +75,15 @@ function handler() {
     };
 
     function addToImage(context, message){
+        if (stream.memory(self.compid + "-image-"+ context) == null)
+            return;
         stream.memory(self.compid + "-image-"+ context).add(message);
-        stream.log().info("addToImage: "+stream.memory(self.compid + "-image-"+ context).size());
     }
 
     function removeFromImage(context, message) {
+        if (stream.memory(self.compid + "-image-"+ context) == null)
+            return;
         stream.memory(self.compid + "-image-"+ context).index("name").remove(message.property("name").value().toString());
-        stream.log().info("removeFromImage: "+stream.memory(self.compid + "-image-"+ context).size());
     }
 
     function updateImage(context, message) {
@@ -91,7 +95,6 @@ function handler() {
                 if (!(name === "_CTX" || name === "_TIME" || name === "_OP"))
                     image.property(name).set(prop.value());
             });
-            stream.log().info("updateImage: "+stream.memory(self.compid + "-image-"+ context).size());
         }
     }
 
@@ -105,7 +108,6 @@ function handler() {
             var content = JSON.stringify(body);
             bulk.push(content);
         });
-        stream.log().info("flushImage: "+JSON.stringify(bulk));
         if (bulk.length > 0) {
             var body = {
                 _OP: "bulk",
