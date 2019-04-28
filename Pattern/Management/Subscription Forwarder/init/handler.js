@@ -19,25 +19,19 @@ function handler() {
         if (inputs.size() === 0) {
             stream.create().input(context).management().context(context)
                 .onAdd(function (input) {
-                    if (!isFiltered(input.current())) {
                         addToImage(context, input.current());
                         sendToChannels(context, input.current());
-                    }
                 })
                 .onChange(function (input) {
-                    if (!isFiltered(input.current())){
                         updateImage(context, input.current());
                         if (isLiveData(input.current()))
                             stream.memory(self.compid+context).add(input.current());
                         else
                             sendToChannels(context, input.current());
-                    }
                 })
                 .onRemove(function (input) {
-                    if (!isFiltered(input.current())) {
                         removeFromImage(context, input.current());
                         sendToChannels(context, input.current());
-                    }
                 }).start();
             stream.create().memory(self.compid + "-image-"+ context).heap().createIndex("name");
             stream.create().memory(self.compid + context).heap().createIndex("name");
@@ -87,6 +81,8 @@ function handler() {
     }
 
     function updateImage(context, message) {
+        if (stream.memory(self.compid + "-image-" + context) == null)
+            return;
         var images = stream.memory(self.compid + "-image-"+ context).index("name").get(message.property("name").value().toString());
         if (images.size() === 1){
             var image = images.first();
@@ -115,14 +111,9 @@ function handler() {
             };
             var msg = stream.create().message().textMessage().nonpersistent().property("channelid").set(channelid).body(JSON.stringify(body));
             self.executeOutputLink("Debug", msg);
-            stream.output(channelid).send(msg);
+            if (stream.output(channelid) !== null)
+                stream.output(channelid).send(msg);
         }
-    }
-
-    function isFiltered(message) {
-        var ctx = message.property("_CTX").value().toString();
-        var name = message.property("name").value().toString();
-        return ctx === "/sys$queuemanager/usage" && name.startsWith("tpc$");
     }
 
     function isLiveData(message) {
@@ -181,7 +172,7 @@ function handler() {
         var content = JSON.stringify(body);
         var msg = stream.create().message().textMessage().nonpersistent().property("channelid").set(channelid).body(content);
         self.executeOutputLink("Debug", msg);
-        if (stream.output(channelid) != null)
+        if (stream.output(channelid) !== null)
             stream.output(channelid).send(msg);
     }
 }
