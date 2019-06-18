@@ -16,35 +16,36 @@
     ]
   },
   "properties": [
+
     {
       "name": "properties",
       "label": "Properties",
-      "description": "Provide the names of the properties of the message that should be set to a value. Other existing properties will be removed.",
-      "type": "array",
-      "fieldtypes": [
-        "identifier"
-      ],
-      "mandatory": true
-    },
-    {
-      "name": "types",
-      "label": "Types",
-      "description": "Provide the corresponding types of the properties. Possible types are 'boolean', 'string', 'integer', 'long', 'double', 'float'",
-      "type": "array",
-      "fieldtypes": [
-        "identifier"
-      ],
-      "mandatory": true
-    },
-    {
-      "name": "values",
-      "label": "Values",
-      "description": "Provide the corresponding values to set. Either enter a static value or use {propertyname} to use a property value of the incoming message. To set the current time in milliseconds, use [time].",
-      "type": "array",
-      "fieldtypes": [
-        "string"
-      ],
-      "mandatory": true
+      "description": "Provide the properties and values to set.",
+      "mandatory": true,
+      "type": "table",
+      "tablefields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "description": "Name of the property to set.",
+          "type": "identifier",
+          "mandatory": true
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "description": "Type of the property value. Possible types are 'boolean', 'string', 'integer', 'long', 'double', 'float'.",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "value",
+          "label": "Value",
+          "description": "The value to set for the property. Either enter a static value or use {propertyname} to use a property value of the incoming message. To set the current time in milliseconds, use [time].",
+          "type": "string",
+          "mandatory": true
+        }                
+      ]
     }
   ]
 }
