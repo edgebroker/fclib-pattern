@@ -8,7 +8,7 @@ function handler(In) {
         var type = this.properties[i]["type"];
         var value = this.properties[i]["value"];
 
-        outMsg.property(name).set(convert(subSystemTags(subRefProps(In, this.flowcontext.substitute(value))), type));
+        outMsg.property(name).set(convert(subSystemTags(subRefProps(In, this.substitute(value))), type));
     }
 
     this.executeOutputLink("Out", outMsg);
