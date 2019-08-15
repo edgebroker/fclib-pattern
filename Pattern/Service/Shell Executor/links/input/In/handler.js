@@ -1,5 +1,4 @@
 function handler(In) {
-    stream.log().info("In: " + In);
     if (!this.assertProperty(In, this.props["correlationprop"]))
         return;
     stream.memory(this.compid + "-requests").add(In);
@@ -16,7 +15,6 @@ function handler(In) {
             command: buildCommand(In, this.props["command"], this.props["parameters"])
         }
     ));
-    stream.log().info("sending shell request: " + request);
     this.getInputReference("Connection")().sendCommand(request);
     this.executeOutputLink("Out", In);
 

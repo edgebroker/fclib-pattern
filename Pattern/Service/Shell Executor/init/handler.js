@@ -32,7 +32,6 @@ function handler() {
         var output = body.body.message.shift();
         output = output.substring(0, output.length - 1);
         reply.body(JSON.stringify(body.body.message));
-        stream.log().info("Send reply: " + output + "/" + reply);
         self.executeOutputLink(output, reply);
     }
 }
