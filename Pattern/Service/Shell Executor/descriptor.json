@@ -1,0 +1,85 @@
+{
+  "description": "Executes a command on a shell and returns a reply. The input message must contain a configurable correlation property which is passed back in the reply and can be used to correlate request and reply (i.e. an orderid). The original request is returned via the Timeout output if a timeout occurs.",
+  "links": {
+    "input": [
+      {
+        "name": "In",
+        "type": "message",
+        "mandatory": false
+      }
+    ],
+    "output": [
+      {
+        "name": "Out",
+        "type": "message",
+        "mandatory": false
+      },
+      {
+        "name": "Result",
+        "type": "message",
+        "mandatory": false
+      },
+      {
+        "name": "Information",
+        "type": "message",
+        "mandatory": false
+      },
+      {
+        "name": "Warning",
+        "type": "message",
+        "mandatory": false
+      },
+      {
+        "name": "Error",
+        "type": "message",
+        "mandatory": false
+      },
+      {
+        "name": "Timeout",
+        "type": "message",
+        "mandatory": false
+      }
+    ]
+  },
+  "refs": {
+    "input": [
+      {
+        "name": "Connection",
+        "type": "shellconnection",
+        "mandatory": true
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "correlationprop",
+      "label": "Correlation Property Name",
+      "description": "Provide the name of the property in the request which value is used to correlate request and reply.",
+      "type": "identifier",
+      "mandatory": true
+    },
+    {
+      "name": "command",
+      "label": "Shell Command",
+      "description": "Provide the shell command.",
+      "type": "string",
+      "mandatory": true
+    },
+    {
+      "name": "parameters",
+      "label": "Shell Command Parameters",
+      "description": "Provide the shell command parameters. Use {property} for property values of the incoming message.",
+      "type": "array",
+      "mandatory": false
+    },
+    {
+      "name": "timeout",
+      "label": "Timeout (Seconds)",
+      "description": "Provide the timeout of a request in seconds.",
+      "type": "integer",
+      "min": 1,
+      "default": 10,
+      "mandatory": true
+    }
+  ]
+}
