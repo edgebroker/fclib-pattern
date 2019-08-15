@@ -1,5 +1,5 @@
 {
-  "description": "Creates a connection to a flow or cli shell.",
+  "description": "Creates a connection to a shell.",
   "refs": {
     "output": [
       {
