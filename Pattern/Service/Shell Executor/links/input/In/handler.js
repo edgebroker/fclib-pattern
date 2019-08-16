@@ -1,10 +1,12 @@
 function handler(In) {
     if (!this.assertProperty(In, this.props["correlationprop"]))
         return;
+    var currentCid = this.nextId();
+    In.property(this.cidprop).set(currentCid);
     stream.memory(this.compid + "-requests").add(In);
     var request = stream.create().message().textMessage();
     request.replyTo(stream.tempQueue(this.compid + "-reply").destination());
-    request.correlationId(In.property(this.props["correlationprop"]).value().toObject());
+    request.correlationId(currentCid);
     request.property("streamdata").set(true);
     request.property("streamname").set(this.shellstream);
     request.property("commandrequest").set(true);

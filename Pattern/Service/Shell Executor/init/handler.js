@@ -1,12 +1,15 @@
 function handler() {
     var self = this;
+    this.cidprop = "__corrid";
+    var cid = 0;
     stream.create().input(stream.create().tempQueue(self.compid + "-reply")).queue().onInput(function (input) {
         var correlationId = input.current().correlationId();
         if (correlationId !== null) {
-            var mem = stream.memory(self.compid + "-requests").index(self.props["correlationprop"]).get(correlationId);
-            if (mem.size() > 0) {
-                stream.memory(self.compid + "-requests").index(self.props["correlationprop"]).remove(correlationId);
-                self.executeOutputLink("Reply", forwardOutput(correlationId, input.current()));
+            var mem = stream.memory(self.compid + "-requests").index(self.cidprop).get(correlationId);
+            if (mem.size() === 1) {
+                var corridValue = mem.first().property(self.props["correlationprop"]).value().toObject();
+                stream.memory(self.compid + "-requests").index(self.cidprop).remove(correlationId);
+                self.executeOutputLink("Reply", forwardOutput(corridValue, input.current()));
             } else
                 stream.log().error("Request for correlationid not found: " + input.current());
         } else
@@ -14,7 +17,7 @@ function handler() {
 
     });
     stream.create().memory(self.compid + "-requests").heap()
-        .createIndex(this.props["correlationprop"])
+        .createIndex(this.cidprop)
         .limit().time().seconds(self.props["timeout"])
         .onRetire(function (retired) {
             retired.forEach(function (message) {
@@ -33,5 +36,11 @@ function handler() {
         output = output.substring(0, output.length - 1);
         reply.body(JSON.stringify(body.body.message));
         self.executeOutputLink(output, reply);
+    }
+
+    this.nextId = function () {
+        if (cid === Number.MAX_VALUE)
+            cid = 0;
+        return "req-" + (cid++);
     }
 }
