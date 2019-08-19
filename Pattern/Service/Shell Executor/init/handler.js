@@ -9,7 +9,7 @@ function handler() {
             if (mem.size() === 1) {
                 var corridValue = mem.first().property(self.props["correlationprop"]).value().toObject();
                 stream.memory(self.compid + "-requests").index(self.cidprop).remove(correlationId);
-                self.executeOutputLink("Reply", forwardOutput(corridValue, input.current()));
+                self.executeOutputLink("Reply", forwardOutput(corridValue, input.current().body()));
             } else
                 stream.log().error("Request for correlationid not found: " + input.current());
         } else
@@ -29,9 +29,10 @@ function handler() {
         stream.memory(self.compid + "-requests").checkLimit();
     });
 
-    function forwardOutput(correlationId, reply) {
+    function forwardOutput(correlationId, replyBody) {
+        var reply = stream.create().message().textMessage();
         reply.property(self.props["correlationprop"]).set(correlationId);
-        var body = JSON.parse(reply.body());
+        var body = JSON.parse(replyBody);
         var output = body.body.message.shift();
         output = output.substring(0, output.length - 1);
         reply.body(body.body.message.length === 1 ? body.body.message[0] : JSON.stringify(body.body.message));
