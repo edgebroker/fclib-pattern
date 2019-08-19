@@ -34,7 +34,7 @@ function handler() {
         var body = JSON.parse(reply.body());
         var output = body.body.message.shift();
         output = output.substring(0, output.length - 1);
-        reply.body(JSON.stringify(body.body.message));
+        reply.body(body.body.message.length === 1 ? body.body.message[0] : JSON.stringify(body.body.message));
         self.executeOutputLink(output, reply);
     }
 
