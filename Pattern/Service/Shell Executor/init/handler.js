@@ -9,7 +9,7 @@ function handler() {
             if (mem.size() === 1) {
                 var corridValue = mem.first().property(self.props["correlationprop"]).value().toObject();
                 stream.memory(self.compid + "-requests").index(self.cidprop).remove(correlationId);
-                self.executeOutputLink("Reply", forwardOutput(corridValue, input.current().body()));
+                forwardOutput(corridValue, input.current().body());
             } else
                 stream.log().error("Request for correlationid not found: " + input.current());
         } else
