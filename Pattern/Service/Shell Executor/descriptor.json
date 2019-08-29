@@ -17,27 +17,32 @@
       {
         "name": "Result",
         "type": "message",
-        "mandatory": false
+        "mandatory": false,
+        "eventroot": true
       },
       {
         "name": "Information",
         "type": "message",
-        "mandatory": false
+        "mandatory": false,
+        "eventroot": true
       },
       {
         "name": "Warning",
         "type": "message",
-        "mandatory": false
+        "mandatory": false,
+        "eventroot": true
       },
       {
         "name": "Error",
         "type": "message",
-        "mandatory": false
+        "mandatory": false,
+        "eventroot": true
       },
       {
         "name": "Timeout",
         "type": "message",
-        "mandatory": false
+        "mandatory": false,
+        "eventroot": true
       }
     ]
   },
