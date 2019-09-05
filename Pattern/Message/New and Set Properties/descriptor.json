@@ -41,7 +41,7 @@
         {
           "name": "value",
           "label": "Value",
-          "description": "The value to set for the property. Either enter a static value or use {propertyname} to use a property value of the incoming message. To set the current time in milliseconds, use [time].",
+          "description": "The value to set for the property. Either enter a static value or use {propertyname} to use a property value of the incoming message. To set the current time in milliseconds, use [time]. Further tags can be used: [routername], [appname], [flowname].",
           "type": "string",
           "mandatory": true
         }                

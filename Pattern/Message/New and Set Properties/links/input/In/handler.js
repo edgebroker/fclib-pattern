@@ -17,6 +17,12 @@ function handler(In) {
         var result = value;
         if (result.indexOf("[time]") !== -1)
             result = replaceAll(result, "\\[time\\]", time.currentTime()+"");
+        else if (result.indexOf("[routername]") !== -1)
+            result = replaceAll(result, "\\[routername\\]", stream.routerName());
+        else if (result.indexOf("[appname]") !== -1)
+            result = replaceAll(result, "\\[appname\\]", stream.domainName());
+        else if (result.indexOf("[flowname]") !== -1)
+            result = replaceAll(result, "\\[flowname\\]", stream.name());
         return result;
     }
 
