@@ -13,7 +13,14 @@
     {
       "name": "routername",
       "label": "Router Name",
-      "description": "Provide the name of the router where the shell is located. The local rrouter is used if not specified.",
+      "description": "Provide the name of the router where the shell is located. The local router is used if not specified.",
+      "type": "string",
+      "mandatory": false
+    },
+    {
+      "name": "appname",
+      "label": "App Name",
+      "description": "Provide the name of the app that provides the shell. The local app is used if not specified.",
       "type": "string",
       "mandatory": false
     },
