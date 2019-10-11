@@ -1,0 +1,28 @@
+{
+  "description": "Perform a request/reply. The component creates a temporary queue and sets it as replyTo on each request. Requests are passed to the Out connector which must be connected to a queue/topic output to send the request. Messages received on this temporary queue are passed back on the Reply connector.",
+  "links": {
+    "input": [
+      {
+        "name": "Request",
+        "type": "message",
+        "mandatory": false
+      }
+    ],
+    "output": [
+      {
+        "name": "Out",
+        "type": "message",
+        "mandatory": false,
+        "eventroot": false
+      },
+      {
+        "name": "Reply",
+        "type": "message",
+        "mandatory": false,
+        "eventroot": true
+      }
+    ]
+  },
+  "properties": [
+  ]
+}
