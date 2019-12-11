@@ -1,0 +1,42 @@
+{
+  "description": "Creates a connection to a shell.",
+  "refs": {
+    "output": [
+      {
+        "name": "Connection",
+        "type": "shellconnection",
+        "mandatory": true
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "routername",
+      "label": "Router Name",
+      "description": "Provide the name of the router where the shell is located. The local router is used if not specified.",
+      "type": "string",
+      "mandatory": false
+    },
+    {
+      "name": "appname",
+      "label": "App Name",
+      "description": "Provide the name of the app that provides the shell. The local app is used if not specified.",
+      "type": "string",
+      "mandatory": false
+    },
+    {
+      "name": "flowname",
+      "label": "Flow Name",
+      "description": "Provide the name of the flow that provides the shell.",
+      "type": "identifier",
+      "mandatory": true
+    },
+    {
+      "name": "shellname",
+      "label": "Shell Name",
+      "description": "Provide the name of the shell.",
+      "type": "identifier",
+      "mandatory": true
+    }
+  ]
+}
