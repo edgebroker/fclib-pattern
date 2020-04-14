@@ -21,6 +21,13 @@
       "description": "This is usually used for temp queues which are registered in JNDI.",
       "type": "boolean",
       "default": false
+    },
+    {
+      "name": "autoattach",
+      "label": "Auto Attach",
+      "description": "Auto Attach Service if no attach was issued before send (not recommended).",
+      "type": "boolean",
+      "default": false
     }
   ]
 }
