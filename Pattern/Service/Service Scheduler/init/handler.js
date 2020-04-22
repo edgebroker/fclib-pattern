@@ -42,7 +42,7 @@ function handler() {
         stream.log().info("detachService: key="+key+", forward="+forward);
         var service = findService(key);
         if (service === null)
-            throw "detachService: service not found!";
+            return;
         var foundKey = findKey(service.keys, key);
         if (foundKey === null)
             throw "detachService: foundKey === null at service: "+JSON.stringify(service);
