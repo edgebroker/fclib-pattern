@@ -42,7 +42,7 @@ function handler() {
         stream.log().info("detachService: key="+key+", forward="+forward);
         var service = findService(key);
         if (service === null)
-            throw "detachService: service not found!";
+            return;
         var foundKey = findKey(service.keys, key);
         if (foundKey === null)
             throw "detachService: foundKey === null at service: "+JSON.stringify(service);
@@ -56,9 +56,14 @@ function handler() {
 
     this.sendService = function(key, message){
         var service = findService(key);
-        if (service === null)
-            throw "sendService: Service with key '"+key+"' not found!";
-        stream.log().info("sendService: key="+key+", service="+JSON.stringify(service));
+        if (service === null) {
+            if (self.props["autoattach"]) {
+                stream.log().info("sendService: Service with key '" + key + "' not found, using auto attach");
+                self.attachService(false, key, message);
+                service = findService(key);
+            } else
+                throw "sendService: Service with key '" + key + "' not found!";
+        }
         stream.output(service.name).send(message);
     };
 
