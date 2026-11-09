@@ -1,5 +1,5 @@
 {
-  "description": "Answers a REST request that was received via a REST Route. The original request must be connected to the Request reference input. A message received on the Reply input is sent as the response to the replyTo of the referenced request, carrying its correlation id. This works also if the flow has built a new message on the way, i.e. the reply does not need to be the request message itself. The reply body must be a JSON object; fields starting with '_' are not passed to the client, '_http_status' sets the HTTP status (default 200).",
+  "description": "Answers a REST request that was received via a REST Route. A message received on the Reply input is sent as the response to its own replyTo with its correlation id. If the flow has built a new message on the way and the replyTo is missing, replyTo and correlation id are taken from the request connected to the Request reference. The Request ref holds only the latest request. It is used only when the branch created a new message; in that case keep the branch synchronous. The reply body is the JSON object of the message body (or of the Body Property); invalid JSON and values that are not objects are sent as {\"result\": value}. Fields starting with '_' are not passed to the client; the HTTP status is set from the Status property.",
   "links": {
     "input": [
       {
@@ -19,5 +19,45 @@
     ]
   },
   "properties": [
+    {
+      "name": "status",
+      "label": "Status",
+      "description": "Provide the HTTP status of the reply. If an error is set and the status is 200, 400 is used. With 200, a numeric '_http_status' in the body is kept.",
+      "type": "integer",
+      "min": 100,
+      "max": 599,
+      "default": 200,
+      "mandatory": true
+    },
+    {
+      "name": "error",
+      "label": "Error",
+      "description": "Optional. If set, the reply body is {\"error\": <text>}. Overrides the Error Property.",
+      "type": "string",
+      "mandatory": false
+    },
+    {
+      "name": "errorproperty",
+      "label": "Error Property",
+      "description": "If the message has this property, its value is sent as {\"error\": <value>}.",
+      "type": "identifier",
+      "default": "error",
+      "mandatory": false
+    },
+    {
+      "name": "bodyproperty",
+      "label": "Body Property",
+      "description": "Optional. Sends the value of this message property as JSON instead of the message body.",
+      "type": "identifier",
+      "mandatory": false
+    },
+    {
+      "name": "raw",
+      "label": "Raw",
+      "description": "Answers text/plain: the 'raw' field of the JSON body, or the body text itself.",
+      "type": "boolean",
+      "default": false,
+      "mandatory": false
+    }
   ]
 }
