@@ -1,0 +1,34 @@
+{
+  "description": "Receives requests of a REST route. The component subscribes to the topic of a web-API route and splits the incoming requests by HTTP method. A separate output connector is created for each method of the Methods property and a request is passed to the output connector of its method. The latest request is available via the Request reference.",
+  "links": {
+    "outputdepend": {
+      "name": "methods",
+      "type": "message"
+    }
+  },
+  "refs": {
+    "output": [
+      {
+        "name": "Request",
+        "type": "message",
+        "mandatory": false
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "topic",
+      "label": "Route Topic",
+      "description": "Provide the name of the topic of the web-API route to subscribe to.",
+      "type": "string",
+      "mandatory": true
+    },
+    {
+      "name": "methods",
+      "label": "Methods",
+      "description": "Provide the HTTP methods to handle (i.e. GET, POST, PUT, DELETE). A separate output connector is created for each method.",
+      "type": "array",
+      "mandatory": true
+    }
+  ]
+}
