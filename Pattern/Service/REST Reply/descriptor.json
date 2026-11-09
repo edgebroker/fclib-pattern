@@ -1,0 +1,23 @@
+{
+  "description": "Answers a REST request that was received via a REST Route. The original request must be connected to the Request reference input. A message received on the Reply input is sent as the response to the replyTo of the referenced request, carrying its correlation id. This works also if the flow has built a new message on the way, i.e. the reply does not need to be the request message itself. The reply body must be a JSON object; fields starting with '_' are not passed to the client, '_http_status' sets the HTTP status (default 200).",
+  "links": {
+    "input": [
+      {
+        "name": "Reply",
+        "type": "message",
+        "mandatory": true
+      }
+    ]
+  },
+  "refs": {
+    "input": [
+      {
+        "name": "Request",
+        "type": "message",
+        "mandatory": true
+      }
+    ]
+  },
+  "properties": [
+  ]
+}
